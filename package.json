@@ -1,0 +1,15 @@
+{
+  "name": "message-app-oop",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "author": "Luigi Moraes<luigimoraessantos@gmail.com>",
+  "license": "GLP AGPLv3",
+  "private": false,
+  "dependencies": {
+    "typescript": "^4.8.3"
+  },
+	"scripts": {
+		"build": "tsc --build",
+	  "clean": "tsc --build --clean"
+	}
+}
