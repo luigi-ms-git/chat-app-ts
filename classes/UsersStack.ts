@@ -1,33 +1,33 @@
 import User from './User';
+import Stack from './Stack';
 
-class UsersStack {
-	private _list: Array<User>;
-	private _length: number;
-
+class UsersStack extends Stack {
+/*	private _users: Array<User>;
+	private _size: number;
+*/
 	constructor(){
-		this._list = [];
-		this._length = 0;
+		super([], 0);
 	}
 
-	public userExists(userId: number): boolean {
-		return this.list.some((usr: User) => usr.id === userId);
+	public itemExists(userId: number): boolean {
+		return this.getList().some((usr) => usr.id === userId);
 	}
 
-	public push(newUser: User){
-		this.length += 1;
+	public push = (newUser: User) => {
+		this.setLength(this.getLength() + 1);
 
-		newUser.id = this.length;
-		this.list.push(newUser);
+		newUser.id = this.getLength();
+		this.getList.push(newUser);
 	}
 
-	public getUser(userId: number): User{
+	public getItem(userId: number): User{
 		let found: Array<User> = this.list.filter((user: User) => user.id === userId);
 		return found[0];
 	}
 
-	public deleteUser(userId: number): string{
-		if(this.userExists(userId)){
-			let found: User = this.getUser(userId);
+	public removeItem(userId: number): string{
+		if(this.itemExists(userId)){
+			let found: User = this.getItem(userId);
 			this.list = this.list.filter((usr: User) => {
 				return usr.id !== found.id;
 			});
@@ -36,22 +36,6 @@ class UsersStack {
 		}else{
 			return "User not found"
 		}
-	}
-
-	public get length(): number {
-		return this._length;
-	}
-
-	public set length(length: number){
-		this._length = length;
-	}
-
-	public get list(): Array<User> {
-		return this._list;
-	}
-
-	public set list(list: Array<User>){
-		this._list = list;
 	}
 }
 

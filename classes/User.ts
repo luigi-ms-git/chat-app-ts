@@ -1,24 +1,18 @@
 import UsersStack from './UsersStack';
-import Chat from './Chat';
+import ChatStack from './Chat';
 
 class User {
 	private _name: string;
 	private _id: number;
-	private _chats: Array<Chat>;
+	private _chats: ChatStack;
 	private _contacts: UsersStack;
 
 	constructor(name: string) {
 		this._name = name;
 		this._id = 0;
-		this._chats = [];
+		this._chats = new ChatStack();
 		this._contacts = new UsersStack();
 	}
-
-	public sendMessage(chatId: number){}
-
-	public openChat(chatId: number){}
-
-	public deleteChat(chatId: number){}
 
 	public addContact(){}
 
@@ -42,11 +36,11 @@ class User {
 		this._id = id;
 	}
 
-	public get chats(): Array<Chat> {
+	public get chats(): ChatStack {
 		return this._chats;
 	}
 
-	public set chats(chats: Array<Chat>){
+	public set chats(chats: ChatStack){
 		this._chats = chats;
 	}
 

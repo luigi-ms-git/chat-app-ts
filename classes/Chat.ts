@@ -1,39 +1,44 @@
 import Message from './Message';
 import UsersStack from './UsersStack';
+import IStack from './IStack';
 
-class Chat {
-	private _messages: Array<Message>;
+class Chat implements IStack {
+	private _list: Array<Message>;
+	private _length: number;
 	private _users: UsersStack;
-	private _messagesAmount: number;
 	private _id: number;
 
 	constructor(id: number, users: UsersStack){
 		this._users = users;
-		this._messages = [];
-		this._messagesAmount = 0;
+		this._list = [];
+		this._length = 0;
 		this._id = id;
 	}
 
-	public messageExists(messageId: number): boolean {
-		return this.messages.some((msg: Message) => msg.id === messageId);
+	public itemExists(itemId: number): boolean;
+	public itemExists(messageId: number): boolean {
+		return this.list.some((msg: Message) => msg.id === messageId);
 	}
 
-	public pushMessage(newMessage: Message){
-		this.messagesAmount += 1;
+	public push(item: Object): void
+	public push(newMessage: Message): void{
+		this.length += 1;
 
-		newMessage.id = this.messagesAmount;
-		this.messages.push(newMessage);
+		newMessage.id = this.length;
+		this.list.push(newMessage);
 	}
 
-	public getMessage(messageId: number): Message {
-		let found: Array<Message> = this.messages.filter((msg: Message) => msg.id === messageId);
+	public getItem(itemId: number): any;
+	public getItem(messageId: number): Message {
+		let found: Array<Message> = this.list.filter((msg: Message) => msg.id === messageId);
 		return found[0];
 	}
 
-	public deleteMessage(messageId: number): string {
-		if(this.messageExists(messageId)){
-			let found: Message = this.getMessage(messageId);
-			this.messages = this.messages.filter((msg: Message) => {
+	public removeItem(itemId: number): string;
+	public removeItem(messageId: number): string {
+		if(this.itemExists(messageId)){
+			let found: Message = this.getItem(messageId);
+			this.list = this.list.filter((msg: Message) => {
 				return msg.id !== found.id;
 			});
 
@@ -47,20 +52,20 @@ class Chat {
 		return this.users.length;
 	}
 
-	public get messages(): Array<Message> {
-		return this._messages;
+	public get list(): Array<Message> {
+		return this._list;
 	}
 
-	public set messages(messages: Array<Message>){
-		this._messages = messages;
+	public set list(list: Array<Message>){
+		this._list = list;
 	}
 
-	public get messagesAmount(): number {
-		return this._messagesAmount;
+	public get length(): number {
+		return this._length;
 	}
 
-	public set messagesAmount(messagesAmount: number){
-		this._messagesAmount = messagesAmount;
+	public set length(length: number){
+		this._length = length;
 	}
 
 	public get users(): UsersStack {
