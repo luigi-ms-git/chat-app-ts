@@ -1,5 +1,5 @@
 interface IStack {
-	_list: Array<Object>;
+	_list: Array<any>;
 	_length: number;
 }
 

@@ -1,5 +1,7 @@
 import UsersStack from './UsersStack';
-import ChatStack from './Chat';
+import ChatStack from './ChatStack';
+import Message from './Message';
+import Chat from './Chat';
 
 class User {
 	private _name: string;
@@ -14,11 +16,28 @@ class User {
 		this._contacts = new UsersStack();
 	}
 
-	public addContact(){}
+	public get id(): number {
+		return this._id;
+	}
 
-	public getContact(){}
+	public sendMessage(chatId: number, text: string){
+		let msg: Message = new Message(text, this);
 
-	public deleteContact(){}
+		this.chats.getItem(chatId).push(msg);
+	}
+
+	public addContact(name: string){
+		let newUser: User = new User(name);
+		this.contacts.push(newUser);
+	}
+
+	public getContact(contactId: number): User {
+		return this.contacts.getItem(contactId);
+	}
+
+	public deleteContact(contactId: number): string {
+		return this.contacts.removeItem(contactId);
+	}
 
 	public get name(): string {
 		return this._name;
@@ -26,13 +45,7 @@ class User {
 
 	public set name(name: string){
 		this._name = name;
-	}
-
-	public get id(): number {
-		return this._id;
-	}
-
-	public set id(id: number){
+	}	public set id(id: number){
 		this._id = id;
 	}
 

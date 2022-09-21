@@ -1,46 +1,39 @@
 import Message from './Message';
 import UsersStack from './UsersStack';
-import IStack from './IStack';
+import Stack from './Stack';
 
-class Chat implements IStack {
-	private _list: Array<Message>;
-	private _length: number;
+class Chat extends Stack {
 	private _users: UsersStack;
 	private _id: number;
 
 	constructor(id: number, users: UsersStack){
+		super([], 0)
 		this._users = users;
-		this._list = [];
-		this._length = 0;
 		this._id = id;
 	}
 
-	public itemExists(itemId: number): boolean;
 	public itemExists(messageId: number): boolean {
-		return this.list.some((msg: Message) => msg.id === messageId);
+		return this.getList().some((msg: Message) => msg.id === messageId);
 	}
 
-	public push(item: Object): void
 	public push(newMessage: Message): void{
-		this.length += 1;
+		this.setLength(this.getLength() + 1);
 
-		newMessage.id = this.length;
-		this.list.push(newMessage);
+		newMessage.id = this.getLength();
+		this.getList().push(newMessage);
 	}
 
-	public getItem(itemId: number): any;
 	public getItem(messageId: number): Message {
-		let found: Array<Message> = this.list.filter((msg: Message) => msg.id === messageId);
+		let found: Array<Message> = this.getList().filter((msg: Message) => msg.id === messageId);
 		return found[0];
 	}
 
-	public removeItem(itemId: number): string;
 	public removeItem(messageId: number): string {
 		if(this.itemExists(messageId)){
 			let found: Message = this.getItem(messageId);
-			this.list = this.list.filter((msg: Message) => {
+			this.setList(this.getList().filter((msg: Message) => {
 				return msg.id !== found.id;
-			});
+			}));
 
 			return "Message deleted";
 		}else{
@@ -49,7 +42,7 @@ class Chat implements IStack {
 	}
 
 	public getAmountOfUsers(): number {
-		return this.users.length;
+		return this.users.getLength();
 	}
 
 	public get list(): Array<Message> {

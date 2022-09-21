@@ -1,19 +1,19 @@
 import IStack from './IStack';
 
 abstract class Stack implements IStack {
-	_list: Array<Object>;
+	_list: Array<any>;
 	_length: number;
 
-	constructor(list: Array<Object>, length: number){
+	constructor(list: Array<any>, length: number){
 		this._list = list;
 		this._length = length;
 	}
 
-	public getList(): Array<Object> {
+	public getList(): Array<any> {
 		return this._list;
 	}
 
-	public setList(list: Array<Object>): void {
+	public setList(list: Array<any>): void {
 		this._list = list;
 	}
 
@@ -26,9 +26,9 @@ abstract class Stack implements IStack {
 	}
 
 	abstract itemExists(itemId: number): boolean;
-	abstract push: (item: Object) => void;
-	abstract getItem: (itemId: number) => any;
-	abstract removeItem: (itemId: number) => string;
+	abstract push(item: any): void;
+	abstract getItem(itemId: number): any;
+	abstract removeItem(itemId: number): string;
 }
 
 export default Stack;
