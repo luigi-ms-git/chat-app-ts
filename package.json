@@ -1,7 +1,7 @@
 {
   "name": "message-app-oop",
   "version": "1.0.0",
-  "main": "index.ts",
+  "main": "./classes/User.ts",
   "author": "Luigi Moraes<luigimoraessantos@gmail.com>",
   "license": "GLP AGPLv3",
   "private": false,
