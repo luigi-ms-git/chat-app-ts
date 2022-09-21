@@ -1,6 +1,4 @@
-import IStack from './IStack';
-
-abstract class Stack implements IStack {
+abstract class Stack {
 	_list: Array<any>;
 	_length: number;
 
@@ -9,26 +7,47 @@ abstract class Stack implements IStack {
 		this._length = length;
 	}
 
-	public getList(): Array<any> {
+	public get list(): Array<any> {
 		return this._list;
 	}
 
-	public setList(list: Array<any>): void {
+	public set list(list: Array<any>){
 		this._list = list;
 	}
 
-	public getLength(): number {
+	public get length(): number {
 		return this._length;
 	}
 
-	public setLength(length: number): void {
+	public set length(length: number){
 		this._length = length;
 	}
 
-	abstract itemExists(itemId: number): boolean;
-	abstract push(item: any): void;
-	abstract getItem(itemId: number): any;
-	abstract removeItem(itemId: number): string;
+	public itemExists(itemId: number): boolean {
+		return this.list.some((it: any) => it.id === itemId);
+	}
+	
+	public push(newItem: any): void {
+		this.length += 1;
+		newItem.id = this.length;
+		this.list.push(newItem);
+	}
+	
+	public getItem(itemId: number): any {
+		let found: Array<any> = this.list.filter((it: any) => {
+			return it.id === itemId;
+		});
+		return found[0];
+	}
+	
+	public removeItem(itemId: number): void {
+		if(this.itemExists(itemId)){
+			let found: any = this.getItem(itemId);
+			this.list = this.list.filter((it: any) => {
+				return it.id === itemId;
+			});
+		}
+	}
 }
 
 export default Stack;

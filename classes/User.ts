@@ -16,16 +16,6 @@ class User {
 		this._contacts = new UsersStack();
 	}
 
-	public get id(): number {
-		return this._id;
-	}
-
-	public sendMessage(chatId: number, text: string){
-		let msg: Message = new Message(text, this);
-
-		this.chats.getItem(chatId).push(msg);
-	}
-
 	public addContact(name: string){
 		let newUser: User = new User(name);
 		this.contacts.push(newUser);
@@ -35,8 +25,8 @@ class User {
 		return this.contacts.getItem(contactId);
 	}
 
-	public deleteContact(contactId: number): string {
-		return this.contacts.removeItem(contactId);
+	public deleteContact(contactId: number): void {
+		this.contacts.removeItem(contactId);
 	}
 
 	public get name(): string {
@@ -45,7 +35,13 @@ class User {
 
 	public set name(name: string){
 		this._name = name;
-	}	public set id(id: number){
+	}
+
+	public get id(): number {
+		return this._id;
+	}
+
+	public set id(id: number){
 		this._id = id;
 	}
 
